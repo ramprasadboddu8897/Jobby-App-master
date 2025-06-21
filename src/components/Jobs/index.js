@@ -113,8 +113,8 @@ const Jobs = () => {
       return (
         <div className="card-container">
           <img src={profileDetails.profileImageUrl} alt="profile" className="profile" />
-          <h1>{profileDetails.name}</h1>
-          <p>{profileDetails.shortBio}</p>
+          <h1 className='profile-name'>{profileDetails.name}</h1>
+          <p className='profile-bio'>{profileDetails.shortBio}</p>
         </div>
       );
   };
@@ -181,7 +181,7 @@ const Jobs = () => {
               <BsSearch />
             </button>
           </div>
-          {renderJobs()}
+          <div className='jobs-search-results-section'>{renderJobs()}</div>
         </main>
       </div>
     </div>

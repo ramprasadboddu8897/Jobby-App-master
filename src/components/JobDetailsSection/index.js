@@ -163,7 +163,7 @@ class AboutJobItem extends Component {
             <div className="company-life-img-container">
               <div className="life-heading-para-container">
                 <h1>Life at Company</h1>
-                <p>{lifeAtCompany.description}</p>
+                <p className='description-para'>{lifeAtCompany.description}</p>
               </div>
               <img src={lifeAtCompany.imageUrl} alt="life at company" />
             </div>

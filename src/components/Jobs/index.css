@@ -17,7 +17,7 @@ body {
 .jobs-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 45px;
   gap: 20px;
 }
 
@@ -36,11 +36,12 @@ main {
 .card-container {
   background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
   background-size: cover;
+  max-width: 370px;
+  max-height: 250px;
   padding: 30px;
-  border-radius: 10px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   margin-bottom: 20px;
-  color: #ffffff;
-  text-align: center;
 }
 
 /* Profile Content */
@@ -58,9 +59,9 @@ main {
 }
 
 .profile-bio {
-  color: #cbd5e1;
-  font-size: 14px;
-  font-weight: 400;
+  color: #64748b;
+  font-weight: 500;
+  font-family: 'Roboto';
 }
 
 /* Filter Section */
@@ -140,7 +141,9 @@ ul {
   align-items: center;
   color: #ffffff;
 }
-
+.jobs-search-results-section{
+  margin-right: 280px;
+}
 .failure-heading {
   font-size: 18px;
   font-weight: bold;
