@@ -1,14 +1,18 @@
 import {Component} from 'react'
-import {Redirect} from 'react-router-dom'
+import {Link,Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import './index.css'
 
 class Login extends Component {
   state = {
-    username: '',
+    email: '',
     password: '',
     errorMsge: '',
     showError: false,
+    showPassword: false,
+  }
+  toggleShowPassword = () => {
+  this.setState(prevState => ({ showPassword: !prevState.showPassword }))
   }
 
   onSubmitSuccess = jwtToken => {
@@ -21,11 +25,14 @@ class Login extends Component {
 
   onSubmitLogin = async event => {
     event.preventDefault()
-    const {username, password} = this.state
-    const apiUrl = 'https://apis.ccbp.in/login'
-    const userDetails = {username, password}
+    const {email, password} = this.state
+    //const apiUrl = 'https://apis.ccbp.in/login'
+    const apiUrl = 'http://localhost:5000/api/auth/login'
+    const userDetails = {email, password}
+    console.log(userDetails);
     const options = {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json',},
       body: JSON.stringify(userDetails),
     }
     const response = await fetch(apiUrl, options)
@@ -38,22 +45,22 @@ class Login extends Component {
   }
 
   // On Changing Functions
-  onChangeUsername = event => this.setState({username: event.target.value})
+  onChangeUsername = event => this.setState({email: event.target.value})
 
   onChangePassword = event => this.setState({password: event.target.value})
 
   // Username Input
   renderUsername = () => {
-    const {username} = this.state
+    const {email} = this.state
 
     return (
       <div className="input-container">
-        <label className="label-text" htmlFor="username">
-          USERNAME
+        <label className="label-text" htmlFor="email">
+          Email
         </label>
         <input
           type="text"
-          value={username}
+          value={email}
           onChange={this.onChangeUsername}
           placeholder="Username"
           className="input-element"
@@ -65,22 +72,29 @@ class Login extends Component {
 
   // Password Input
   renderPassword = () => {
-    const {password} = this.state
+  const {password, showPassword} = this.state
 
-    return (
-      <div className="input-container">
-        <label className="label-text" htmlFor="password">
-          PASSWORD
-        </label>
+  return (
+    <div className="input-container">
+      <label className="label-text" htmlFor="password">Password</label>
+      <div className="password-toggle-wrapper">
         <input
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           value={password}
           onChange={this.onChangePassword}
           placeholder="Password"
-          className="input-element"
+          className="input-element with-toggle"
           id="password"
         />
+        <button
+          type="button"
+          className="toggle-password-btn"
+          onClick={this.toggleShowPassword}
+        >
+          {showPassword ? 'Hide' : 'Show'}
+        </button>
       </div>
+    </div>
     )
   }
 
@@ -99,7 +113,8 @@ class Login extends Component {
             <img
               className="website-logo"
               alt="website logo"
-              src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+              src="https://sdmntpreastus.oaiusercontent.com/files/00000000-680c-61f9-a2c7-fe598dd7665f/raw?se=2025-06-22T22%3A46%3A40Z&sp=r&sv=2024-08-04&sr=b&scid=17f7c52d-6f03-586a-a08b-aee81c708ccd&skoid=02b7f7b5-29f8-416a-aeb6-99464748559d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-21T23%3A04%3A30Z&ske=2025-06-22T23%3A04%3A30Z&sks=b&skv=2024-08-04&sig=XQVh3JRR18UK9CQEs3h/zUFckWJrnJDQ6HjfOswZIIE%3D"
+              style={{ width: '100px', height: 'auto',borderRadius:"0px 20px 0px 20px" }}
             />
             {this.renderUsername()}
             {this.renderPassword()}
@@ -110,6 +125,9 @@ class Login extends Component {
             </div>
             {showError && <p className="error-message">*{errorMsge}</p>}
           </form>
+          <p className="register-text">
+            New user? <Link to="/register" className="register-link">Register here</Link>
+          </p>
         </div>
       </div>
     )

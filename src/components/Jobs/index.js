@@ -1,5 +1,4 @@
 // Refactored Jobs component using functional React with hooks
-
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { BsSearch } from 'react-icons/bs';
@@ -9,10 +8,10 @@ import JobItem from '../JobItem';
 import './index.css';
 
 const employmentTypesList = [
-  { label: 'Full Time', employmentTypeId: 'FULLTIME' },
-  { label: 'Part Time', employmentTypeId: 'PARTTIME' },
-  { label: 'Freelance', employmentTypeId: 'FREELANCE' },
-  { label: 'Internship', employmentTypeId: 'INTERNSHIP' },
+  { label: 'Full Time', employmentTypeId: 'Full Time' },
+  { label: 'Part Time', employmentTypeId: 'Part Time' },
+  { label: 'Freelance', employmentTypeId: 'Freelance' },
+  { label: 'Internship', employmentTypeId: 'Internship' },
 ];
 
 const salaryRangesList = [
@@ -50,7 +49,10 @@ const Jobs = () => {
   const fetchProfile = async () => {
     setApiProfileStatus(apiStatusConstants.inProgress);
     const jwtToken = Cookies.get('jwt_token');
-    const response = await fetch('https://apis.ccbp.in/profile', {
+    // const response = await fetch('https://apis.ccbp.in/profile', {
+    //   headers: { Authorization: `Bearer ${jwtToken}` },
+    // });
+    const response = await fetch('http://localhost:5000/api/auth/profile', {
       headers: { Authorization: `Bearer ${jwtToken}` },
     });
     if (response.ok) {
@@ -70,18 +72,25 @@ const Jobs = () => {
   const fetchJobs = async () => {
     setApiJobsStatus(apiStatusConstants.inProgress);
     const jwtToken = Cookies.get('jwt_token');
-    const url = `https://apis.ccbp.in/jobs?employment_type=${employmentType.join(',')}&minimum_package=${salaryRange}&search=${searchInput}`;
+    // Log filter values
+      // console.log('Fetching jobs with filters:');
+      // console.log('Employment Types:', employmentType);
+      // console.log('Salary Range:', salaryRange);
+      // console.log('Search Input:', searchInput);
+    //const url = `https://apis.ccbp.in/jobs?employment_type=${employmentType.join(',')}&minimum_package=${salaryRange}&search=${searchInput}`;
+    const url = `http://localhost:5000/api/jobs?employment_type=${employmentType.join(',')}&minimum_package=${salaryRange}&search=${searchInput}`;
+    
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${jwtToken}` },
     });
     if (response.ok) {
       const data = await response.json();
       const jobs = data.jobs.map(job => ({
-        id: job.id,
+        id: job._id,
         title: job.title,
         rating: job.rating,
         location: job.location,
-        employmentType: job.employment_type,
+        employmentType: job.employmentType,
         packagePerAnnum: job.package_per_annum,
         jobDescription: job.job_description,
         companyLogoUrl: job.company_logo_url,
@@ -157,9 +166,10 @@ const Jobs = () => {
 
     return (
       <ul>
-        {jobsList.map(job => (
-          <JobItem key={job.id} jobData={job} />
-        ))}
+        {jobsList.map(job => {
+        //console.log("Job ID:", job); // 🔍 Logs each job's ID
+        return <JobItem key={job.id} jobData={job} />;
+      })}
       </ul>
     );
   };

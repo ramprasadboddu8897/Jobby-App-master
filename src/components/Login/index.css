@@ -6,17 +6,20 @@
   justify-content: center;
   align-items: center;
 }
+
 .form-container {
   background-color: #272727;
   padding: 20px;
   border-radius: 10px;
 }
+
 .input-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 }
+
 .input-element {
   width: 300px;
   height: 35px;
@@ -30,10 +33,16 @@
   outline: none;
   padding: 5px;
 }
+
+.input-element.with-toggle {
+  padding-right: 60px; /* Space for toggle button */
+}
+
 .website-logo {
   width: 100px;
   margin-bottom: 20px;
 }
+
 .form-div {
   display: flex;
   flex-direction: column;
@@ -54,6 +63,7 @@
   font-size: 15px;
   margin-top: 10px;
 }
+
 .login-button {
   background-color: #6366f1;
   font-family: 'Roboto';
@@ -66,8 +76,54 @@
   border-radius: 8px;
   margin-top: 20px;
 }
+
 .error-message {
   color: #ff0b37;
   font-family: 'Roboto';
   text-align: left;
+}
+
+.register-text {
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.register-link {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+  color: #818cf8; /* Slight hover effect */
+}
+
+/* Password Toggle Button Styles */
+.password-toggle-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6366f1; /* Primary button color */
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 500;
+}
+
+.toggle-password-btn:hover {
+  color: #818cf8;
+  text-decoration: underline;
 }

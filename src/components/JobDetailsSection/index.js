@@ -36,7 +36,9 @@ class AboutJobItem extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
     const jwtToken = Cookies.get('jwt_token')
-    const jobDetailsApiUrl = `https://apis.ccbp.in/jobs/${id}`
+    //const jobDetailsApiUrl = `https://apis.ccbp.in/jobs/${id}`
+    const jobDetailsApiUrl=`http://localhost:5000/api/jobs/${id}`
+    console.log(jobDetailsApiUrl);
     const optionsJobData = {
       headers: {Authorization: `Bearer ${jwtToken}`},
       method: 'GET',
@@ -44,11 +46,12 @@ class AboutJobItem extends Component {
     const responseJobData = await fetch(jobDetailsApiUrl, optionsJobData)
     if (responseJobData.ok === true) {
       const fetchedJobData = await responseJobData.json()
+      console.log(fetchedJobData.job_details);
       const updatedJobDetailsData = [fetchedJobData.job_details].map(
         eachItem => ({
           companyLogoUrl: eachItem.company_logo_url,
           companyWebsiteUrl: eachItem.company_website_url,
-          employmentType: eachItem.employment_type,
+          employmentType: eachItem.employmentType,
           id: eachItem.id,
           jobDescription: eachItem.job_description,
           lifeAtCompany: {
@@ -65,6 +68,7 @@ class AboutJobItem extends Component {
           title: eachItem.title,
         }),
       )
+      console.log('📦 Updated Job Details:', updatedJobDetailsData);
 
       const updatedSimilarJobDetails = fetchedJobData.similar_jobs.map(
         eachItem => ({
