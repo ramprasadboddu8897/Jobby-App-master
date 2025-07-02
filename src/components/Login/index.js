@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import {Link,Redirect} from 'react-router-dom'
+import { BASE_URL } from '../../config';
 import Cookies from 'js-cookie'
 import './index.css'
 
@@ -26,10 +27,11 @@ class Login extends Component {
   onSubmitLogin = async event => {
     event.preventDefault()
     const {email, password} = this.state
-    //const apiUrl = 'https://apis.ccbp.in/login'
-    const apiUrl = 'http://localhost:5000/api/auth/login'
+    // const apiUrl = 'http://localhost:5000/api/auth/login'
+    const apiUrl = `${BASE_URL}/api/auth/login`
+    //console.log(BASE_URL);
     const userDetails = {email, password}
-    console.log(userDetails);
+    //console.log(userDetails);
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json',},

@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner';
 import Header from '../Header';
 import JobItem from '../JobItem';
 import './index.css';
+import { BASE_URL } from '../../config';
 
 const employmentTypesList = [
   { label: 'Full Time', employmentTypeId: 'Full Time' },
@@ -49,10 +50,7 @@ const Jobs = () => {
   const fetchProfile = async () => {
     setApiProfileStatus(apiStatusConstants.inProgress);
     const jwtToken = Cookies.get('jwt_token');
-    // const response = await fetch('https://apis.ccbp.in/profile', {
-    //   headers: { Authorization: `Bearer ${jwtToken}` },
-    // });
-    const response = await fetch('http://localhost:5000/api/auth/profile', {
+    const response = await fetch(`${BASE_URL}/api/auth/profile`, {
       headers: { Authorization: `Bearer ${jwtToken}` },
     });
     if (response.ok) {
@@ -78,7 +76,7 @@ const Jobs = () => {
       // console.log('Salary Range:', salaryRange);
       // console.log('Search Input:', searchInput);
     //const url = `https://apis.ccbp.in/jobs?employment_type=${employmentType.join(',')}&minimum_package=${salaryRange}&search=${searchInput}`;
-    const url = `http://localhost:5000/api/jobs?employment_type=${employmentType.join(',')}&minimum_package=${salaryRange}&search=${searchInput}`;
+    const url = `${BASE_URL}/api/jobs?employment_type=${employmentType.join(',')}&minimum_package=${salaryRange}&search=${searchInput}`;
     
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${jwtToken}` },

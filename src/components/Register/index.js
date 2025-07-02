@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import {Redirect, Link} from 'react-router-dom'
+import { BASE_URL } from '../../config';
 import Cookies from 'js-cookie'
 import './index.css'
 
@@ -33,7 +34,8 @@ class Register extends Component {
       return
     }
 
-    const apiUrl = 'http://localhost:5000/api/auth/register'
+    // const apiUrl = 'http://localhost:5000/api/auth/register'
+    const apiUrl = `${BASE_URL}/api/auth/register`
     const userDetails = {
       name: name.trim(),
       email: email.trim(),

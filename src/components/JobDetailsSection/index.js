@@ -9,6 +9,7 @@ import Header from '../Header'
 import SimilarJobsSection from '../SimilarJobsSection'
 
 import './index.css'
+import { BASE_URL } from '../../config'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -36,9 +37,8 @@ class AboutJobItem extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
     const jwtToken = Cookies.get('jwt_token')
-    //const jobDetailsApiUrl = `https://apis.ccbp.in/jobs/${id}`
-    const jobDetailsApiUrl=`http://localhost:5000/api/jobs/${id}`
-    console.log(jobDetailsApiUrl);
+    const jobDetailsApiUrl=`${BASE_URL}/api/jobs/${id}`
+    //console.log(jobDetailsApiUrl);
     const optionsJobData = {
       headers: {Authorization: `Bearer ${jwtToken}`},
       method: 'GET',
@@ -46,7 +46,7 @@ class AboutJobItem extends Component {
     const responseJobData = await fetch(jobDetailsApiUrl, optionsJobData)
     if (responseJobData.ok === true) {
       const fetchedJobData = await responseJobData.json()
-      console.log(fetchedJobData.job_details);
+      //console.log(fetchedJobData.job_details);
       const updatedJobDetailsData = [fetchedJobData.job_details].map(
         eachItem => ({
           companyLogoUrl: eachItem.company_logo_url,
